@@ -1,8 +1,9 @@
 const { Pictures, Users } = require('../models');
 
 exports.picture_create = (req, res, next) => {
-
+    // req.body.userId = req.user.id
     const picture = new Pictures({
+        // userId: req.user.userId,
         title: req.body.title,
         description: req.body.description,
         picture: req.body.picture
@@ -20,8 +21,10 @@ exports.picture_create = (req, res, next) => {
         });
 }
 
-exports.pictures_get_all = (req, res, next) => {
-    Pictures.findAll().then(pictures => res.status(200).json(pictures));
+exports.pictures_get_all = async(req, res, next) => {
+    
+
+    // Pictures.findAll().then(pictures => res.status(200).json(pictures));
 
     // let allPictures = await Pictures.findAll({where: {}, include: [
     //     { model: Users, as: "user" }
