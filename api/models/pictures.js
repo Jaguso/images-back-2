@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     picture: DataTypes.ARRAY(DataTypes.STRING)
   }, {});
   Pictures.associate = function(models) {
-    Pictures.belongsTo(models.Users, {foreignKey: "userId"});
+    Pictures.belongsTo(models.Users, {foreignKey: "userId", as: "user"});
   };
   return Pictures;
 };

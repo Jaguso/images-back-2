@@ -1,9 +1,8 @@
 const { Pictures, Users } = require('../models');
 
 exports.picture_create = (req, res, next) => {
-    // req.body.userId = req.user.id
+    req.body.userId = req.user.id
     const picture = new Pictures({
-        // userId: req.user.userId,
         title: req.body.title,
         description: req.body.description,
         picture: req.body.picture
@@ -21,15 +20,24 @@ exports.picture_create = (req, res, next) => {
         });
 }
 
+// exports.picture_create = async(req, res) => {
+//     try {
+//         req.body.userId = req.user.id;
+//         const picture = await Pictures.create(req.body);
+//         if (!picture) res.status(400).json({"message": "Error to create picture"});
+//         return res.status(200).json(picture);
+//     } catch(e) {
+//         console.log(e)
+//         return res.status(400).json(e)
+//     }
+// }
+
 exports.pictures_get_all = async(req, res, next) => {
     
-
-    // Pictures.findAll().then(pictures => res.status(200).json(pictures));
-
-    // let allPictures = await Pictures.findAll({where: {}, include: [
-    //     { model: Users, as: "user" }
-    // ]});
-    // return res.status(200).json(allPictures);
+    let allPictures = await Pictures.findAll({where: {}, include: [
+        { model: Users, as: "user" }
+    ]});
+    return res.status(200).json(allPictures);
 
     // Pictures.find()
     //     .exec()
@@ -42,7 +50,8 @@ exports.pictures_get_all = async(req, res, next) => {
     //         res.status(500).json({
     //             error: err
     //         });
-        // });
+    //     });
+
     // Pictures.findAll()
     //     .exec()
     //     .then(docs => {
